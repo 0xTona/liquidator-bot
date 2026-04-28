@@ -1,3 +1,4 @@
+require("dotenv").config();
 require("@nomicfoundation/hardhat-toolbox");
 
 /** @type import('hardhat/config').HardhatUserConfig */
@@ -17,8 +18,21 @@ module.exports = {
   },
   networks: {
     hardhat: {
-      // We will fork a mainnet (like Arbitrum or Base) to test our liquidations
-      // against real Aave V4 state.
+      // Fork Base mainnet for local testing against real Aave state
+      // Uncomment below to enable forking:
+      // forking: {
+      //   url: process.env.RPC_URL || "",
+      // },
+    },
+    base: {
+      url: process.env.RPC_URL || "https://mainnet.base.org",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 8453,
+    },
+    arbitrum: {
+      url: process.env.RPC_URL || "https://arb1.arbitrum.io/rpc",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 42161,
     },
   },
 };

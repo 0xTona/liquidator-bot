@@ -85,26 +85,27 @@ LIQUIDATOR_CONTRACT_ADDRESS=""
 ### 4. Compile the Smart Contract
 
 ```bash
-npx hardhat compile
+npm run compile
 ```
 
 ### 5. Deploy the Smart Contract
 
-Before deploying, update `scripts/deploy.js` with the correct contract addresses for your target network:
+The deploy script auto-detects the network and uses the correct Balancer, Aave, and Uniswap addresses. Just pick your network:
 
-| Contract          | Base  | Arbitrum |
-| ----------------- | ----- | -------- |
-| Balancer Vault    | `TBD` | `TBD`    |
-| Aave V4 Pool      | `TBD` | `TBD`    |
-| Uniswap V3 Router | `TBD` | `TBD`    |
-
-Then deploy:
-
+**Deploy to Base (recommended — cheapest gas):**
 ```bash
-npx hardhat run scripts/deploy.js --network base
+npx hardhat run scripts/deploy.cjs --config hardhat.config.cjs --network base
 ```
 
-Copy the deployed contract address and add it to your `.env` as `LIQUIDATOR_CONTRACT_ADDRESS`.
+**Deploy to Arbitrum:**
+```bash
+npx hardhat run scripts/deploy.cjs --config hardhat.config.cjs --network arbitrum
+```
+
+The script will print the deployed contract address. Copy it into your `.env`:
+```
+LIQUIDATOR_CONTRACT_ADDRESS="0x..."
+```
 
 ### 6. Run the Bot
 
