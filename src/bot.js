@@ -1,5 +1,5 @@
-require("dotenv").config();
-const { ethers } = require("ethers");
+import "dotenv/config";
+import { ethers } from "ethers";
 
 // Updated ABI to match the fixed contract signature
 const LiquidatorABI = [

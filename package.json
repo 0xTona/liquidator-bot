@@ -1,12 +1,12 @@
 {
   "name": "aave-v4-liquidator",
   "version": "1.0.0",
+  "type": "module",
   "description": "Aave V4 liquidation bot using Balancer free flash loans",
-  "main": "index.js",
   "scripts": {
     "start": "node src/bot.js",
-    "compile": "npx hardhat compile",
-    "test": "npx hardhat test"
+    "compile": "npx hardhat compile --config hardhat.config.cjs",
+    "test": "npx hardhat test --config hardhat.config.cjs"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

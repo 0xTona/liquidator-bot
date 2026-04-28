@@ -20,6 +20,7 @@ If a liquidation is not profitable, the transaction **reverts automatically** �
 ```
 
 ### Smart Contract Features
+
 - **Zero-fee flash loans** via Balancer Vault
 - **Dynamic swap fee tier** — the bot picks the optimal Uniswap pool (0.01%, 0.05%, 0.3%, 1%)
 - **Slippage protection** — `minAmountOut` is calculated off-chain and enforced on-chain
@@ -29,6 +30,7 @@ If a liquidation is not profitable, the transaction **reverts automatically** �
 - **Immutable state** — constructor variables use `immutable` to save ~2,100 gas per read
 
 ### Off-Chain Bot Features
+
 - Environment variable validation on startup
 - Wallet balance display
 - Extensible block listener for scanning Aave positions
@@ -38,14 +40,18 @@ If a liquidation is not profitable, the transaction **reverts automatically** �
 ## Setup Instructions for Debian Linux
 
 ### 1. Prerequisites
+
 Ensure you have Node.js (v20+) installed on your Debian server:
+
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
 ### 2. Install Dependencies
+
 Clone this repository and install packages:
+
 ```bash
 git clone <your-repo-url>
 cd liquidation-tool
@@ -53,13 +59,16 @@ npm install
 ```
 
 ### 3. Configure Environment Variables
+
 Copy the example file and fill in your credentials:
+
 ```bash
 cp .env.example .env
 nano .env
 ```
 
 The `.env` file requires three values:
+
 ```ini
 # Your wallet private key (use a FRESH wallet with only $1 for gas!)
 PRIVATE_KEY="0x_your_private_key_here"
@@ -74,33 +83,39 @@ LIQUIDATOR_CONTRACT_ADDRESS=""
 > ⚠️ **Security**: Never commit your `.env` file. It is already in `.gitignore`.
 
 ### 4. Compile the Smart Contract
+
 ```bash
 npx hardhat compile
 ```
 
 ### 5. Deploy the Smart Contract
+
 Before deploying, update `scripts/deploy.js` with the correct contract addresses for your target network:
 
-| Contract | Base | Arbitrum |
-|----------|------|----------|
-| Balancer Vault | `TBD` | `TBD` |
-| Aave V4 Pool | `TBD` | `TBD` |
-| Uniswap V3 Router | `TBD` | `TBD` |
+| Contract          | Base  | Arbitrum |
+| ----------------- | ----- | -------- |
+| Balancer Vault    | `TBD` | `TBD`    |
+| Aave V4 Pool      | `TBD` | `TBD`    |
+| Uniswap V3 Router | `TBD` | `TBD`    |
 
 Then deploy:
+
 ```bash
 npx hardhat run scripts/deploy.js --network base
 ```
+
 Copy the deployed contract address and add it to your `.env` as `LIQUIDATOR_CONTRACT_ADDRESS`.
 
 ### 6. Run the Bot
 
 **Quick test:**
+
 ```bash
 npm start
 ```
 
 **Production (24/7 with auto-restart):**
+
 ```bash
 sudo npm install -g pm2
 pm2 start src/bot.js --name "aave-liquidator"
@@ -109,6 +124,7 @@ pm2 startup   # auto-start on server reboot
 ```
 
 **Monitor logs:**
+
 ```bash
 pm2 logs aave-liquidator
 ```
@@ -142,6 +158,7 @@ function executeLiquidation(
 ```
 
 ### Emergency Functions
+
 ```solidity
 // Recover ERC20 tokens stuck in the contract
 function rescueTokens(address token, uint256 amount) external onlyOwner
@@ -153,6 +170,7 @@ function rescueETH() external onlyOwner
 ---
 
 ## Project Structure
+
 ```
 liquidation-tool/
 ├── contracts/
